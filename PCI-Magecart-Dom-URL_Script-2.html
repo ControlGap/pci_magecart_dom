@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<body>
+	<h2>JavaScript Supply Chain Attack Example - URL/IFRAME Re-writing</h2>
+	<p>This page provides a short and simple example of JavaScript's capability to hijack (re-write) a hardcoded URL (or IFRAME). 
+	<h3>What To Expect</h3>
+	<p>This page presents two links that will open in new tabs when clicked. One link is left alone but the Wikipedia link will be hijacked to a spoof site! 
+	<hr>
+	<ul>
+	<li><a href="https://www.controlgap.com/blog" target="_blank">Click here for the controlgap blog - no surprises</a></li>
+	<li><a href="https://www.wikipedia.org/" target="_blank">Click here to go to Wikipedia - and a surprise</a></li>
+	</ul>
+	<p>Notes:
+	<ul>
+		<li>If you are using a Script blocker, e.g. NoScript, this will not operate as intended.</li>
+		<li>The technique can be used on dynamic and staic links and other tags such as an IFRAME.</li>
+	</ul>
+	<h3>Checking It Out - Under the Covers</h3>
+	<p>You can check out the link as follows: 
+	<ul>
+		<li>View the Source (right click and View Page Source) - to show the unaltered page source and link.</li>
+		<li>Inspect the DOM (right click and Inspect or Inspect Element) - tp show the true state of the hijacked link.</li>
+		<li>In this example, hovering over the link will also show the true link. However, skimmers will take steps to hide this such as using a look-a-like URL or altering the displayed link.</li>
+	</ul>
+	<hr>
+	<h3>Simple Demonstration of Risk</h3>
+	<p>This is not intended to be a full-function URL hijacker and omits many of the polish and evasion methods used by criminal gangs in e-commerce skimmers. Normally a skimmer would simply include a JavaScript via a link (below) - We've left this as inline script for clarity and simplicity: 
+	<blockquote>
+		&lt;script src="any-third-party-script-site.org/package.js"&gt;&lt;/script&gt;
+	</blockquote>
+	<p>Our example is deliberately minimalistic. We wanted an example that was clear, uncluttered, and free of excesses. This is provided on a stand-alone page without styles, branding, or other trappings of a modern web site. No server is needed and you could run this from a file on your desktop.
+	<p>In the case of a real skimmer, no amount of inspection of your web host or your source will find the problem. You need to look at the third party site! Most shopping carts include third party scripts from dozens of URLs - every one a potential risk. Your entire site could be housed on an optical drive with continous file integrity checking and you would not detect a change of code on a third party site.  This effectively demonstrates the risks of using third party scripts you have no controls over. 
+	<script>
+		/* 	Simulated third-party JavaScript - in a skimmer this would be included via a supply chain site*/
+
+		function URLsuprise() {
+				const links = document.querySelectorAll('a')
+				links.forEach((a) => {
+					if (a.href.includes('www.wikipedia.org')) {
+						a.href = 'https://en.uncyclopedia.co/'
+					}
+				})
+			}
+
+		URLsuprise()
+
+		/* End of Simulated third-party JavaScript  */
+	</script>
+</body>
+</html>

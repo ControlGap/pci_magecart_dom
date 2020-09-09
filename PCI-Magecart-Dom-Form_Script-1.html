@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<body>
+    <h2>JavaScript Supply Chain Attack Example - Snooping on a Form</h2>
+    <p>This page provides a short and simple example of a JavaScript's capability to snoop on any form in the same
+        browser instance (DOM).
+    <h3>What To Expect</h3>
+    <p>This page provides two search forms that will open in new tabs when clicked. One form is left alone but the other
+        is bugged by JavaScript and you will see your search arguments added to the calling page. In the case of an e-commerce skimmer the criminals would likely collect all elements of the form and forward them to another web server. For our demonstration purposes it is enough to show that the script can capture the data entered into the form use it for a side purpose.
+	<hr>
+    <ul>
+        <li>
+            <div id="Q1">DuckDuckGo search example with no surprises<br>
+                <form action="https://duckduckgo.com/" method="post" target="_blank" name="S1">
+                    <label>Search Text:</label><br>
+                    <input type="text" name="q">
+                    <input type="submit" value="Search">
+                </form>
+                <p>Your results will be displayed in another tab.
+            </div>
+        </li>
+        <li>
+            <div id="Q2">DuckDuckGo search example with a surprise!<br>
+                <form action="https://duckduckgo.com/" method="post" target="_blank" name="S2">
+                    <label for="stext">Search Text:</label><br>
+                    <input type="search" name="q">
+                    <input type="submit" value="Search">
+                </form>
+                <p>Your results will be displayed in another tab. But come back here for the surprise ...
+            </div>
+        </li>
+    </ul>		
+	<p>Notes: If you are using a Script blocker, e.g. NoScript, this will not operate as intended.
+	<h3>Checking It Out</h3>
+	<p>You can check out the link as follows:
+	<ul>
+		<li>View the Source (right click and View Page Source) - shows the unaltered page source and link.</li>
+		<li>Inspect the DOM (right click and Inspect or Inspect Element) - shows the current state of the DOM.</li>
+    </ul>
+	<hr>
+	<h3>Simple Demonstration of Risk</h3>
+	<p>This is not intended to be a full-function Form hijacker and omits many of the polish and evasion methods
+		used by criminal gangs in e-commerce skimmers. Normally a skimmer would simply include a JavaScript via a
+		link (below) - We've left this as inline script for clarity and simplicity:
+	<blockquote>
+		&lt;script src="any-third-party-script-site.org/package.js"&gt;&lt;/script&gt;
+	</blockquote>
+	<p>Our example is deliberately minimalistic. We wanted an example that was clear, uncluttered, and free of
+		excesses. This is provided on a stand-alone page without styles, branding, or other trappings of a modern
+		web site. No server is needed and you could run this from a file on your desktop.
+	<p>In the case of a real skimmer, no amount of inspection of your web host or your source will find the problem.
+		You need to look at the third party site! Most shopping carts include third party scripts from dozens of
+		URLs - every one a potential risk. Your entire site could be housed on an optical drive with continous file
+		integrity checking and you would not detect a change of code on a third party site. This effectively
+		demonstrates the risks of using third party scripts you have no controls over.
+	<script>
+		/* 	Simulated third-party JavaScript - in a skimmer this would be included via a supply chain site*/
+
+		const forms = document.querySelectorAll('form')
+		forms.forEach(f => {
+			if (f.name === 'S2') {
+				f.onsubmit = (e) => {
+					let injectedNodes = document.querySelectorAll(".injected") || []
+					let p = document.createElement("p")
+					p.className = "injected"
+					p.style = "margin:0;"
+					p.innerHTML = `${injectedNodes.length + 1}. Why are you interested in <strong>${e.target.elements.namedItem("q").value} </strong>?`
+					document.getElementById("Q2").append(p)
+				}
+			}
+		})
+	</script>
+</body>
+</html>
